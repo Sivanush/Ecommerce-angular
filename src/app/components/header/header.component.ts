@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { debounce, debounceTime, Subject } from 'rxjs';
 import { Product } from '../../../interface/product';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../service/cart.service';
 
 @Component({
@@ -22,10 +22,12 @@ export class HeaderComponent {
   products!:Product[]
   searchSubject = new Subject()
   cartCount!:number 
+  isOptions:boolean = false
 
   constructor(
     private productService:ProductService,
-    private cartService:CartService
+    private cartService:CartService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +60,8 @@ export class HeaderComponent {
   selectSuggestion(suggestion:Product){
     this.searchText = suggestion.title;
     this.filteredSuggestions = [];
+    console.log(this.router.navigate(['/detail-page',suggestion.id]));
+    this.router.navigate(['/detail-page',suggestion.id])
   }
 
   onSearchTextChange(searchText:string){
@@ -72,5 +76,9 @@ export class HeaderComponent {
       this.searchText = ''
       this.filteredSuggestions = []
     }
+  }
+
+  optionsToggle(){
+    this.isOptions = !this.isOptions
   }
 }

@@ -31,12 +31,12 @@ export class CartService {
     return true
   }
 
-  getCart():Product[] {
+  getCart(): Product[] {
     let cart = localStorage.getItem('products')
     return cart ? JSON.parse(cart) : []
   }
 
-  getCartLength():number{
+  getCartLength(): number {
     return this.getCart().length
   }
 
@@ -44,4 +44,19 @@ export class CartService {
     this.cartCount.next(this.getCartLength());
   }
 
+  removeProductFromCart(index: number) {
+
+    let existCart = this.getCart()
+    console.log(existCart);
+
+    existCart.splice(index, 1)
+
+    localStorage.setItem('products', JSON.stringify(existCart))
+    this.updateCartCount();
+    return true
+  }
+
+  clearCart() {
+    localStorage.removeItem('products')
+  }
 }

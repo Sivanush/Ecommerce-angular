@@ -1,22 +1,20 @@
 <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8  flex items-center">
-  <!-- Product Section -->
-  <div class="bg-white shadow-lg rounded-lg overflow-hidden flex-1 py-3">
+  <div *ngIf="isLoading" class="relative w-full h-[80vh]">
+    <app-loading  class="absolute inset-0 flex justify-center items-center"></app-loading>
+  </div>
+  <div *ngIf="!isLoading" class="bg-white shadow-lg rounded-lg overflow-hidden flex-1 py-3">
     <div class="lg:flex lg:items-center lg:justify-between h-full">
-      <!-- Product Image -->
       <div class="lg:w-1/2 h-full flex justify-center">
         <img [src]="product.image" alt="John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet"
           class="w-auto h-[80vh] object-contain">
       </div>
 
-      <!-- Product Details -->
       <div class="lg:w-1/2 p-6 h-full flex flex-col justify-center">
         <h1 class="text-2xl font-bold text-gray-800 mb-4">{{product.title}}</h1>
         <p class="text-gray-600 mb-6">{{product.description}}</p>
 
-        <!-- Price -->
-        <p class="text-2xl font-semibold text-green-600 mb-4">${{product.price}}</p>
+        <p class="text-2xl font-semibold text-gray-600 mb-4">${{product.price}}</p>
 
-        <!-- Rating -->
         <div class="flex items-center space-x-2 mb-6">
           <div class="flex text-yellow-400">
             <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
@@ -36,16 +34,17 @@
           <span class="text-gray-600">{{product.rating.rate}} ({{product.rating.count}} reviews)</span>
         </div>
 
-        <!-- Add to Cart -->
-        <button class="w-full py-3 px-6 text-lg font-medium rounded-lg transition duration-300" (click)="addToCart()"
-          [disabled]="isProductInCart" 
-          [ngClass]="{
-          'bg-green-600 text-white hover:bg-green-500': !isProductInCart,
-          'bg-gray-400 text-gray-600 cursor-not-allowed': isProductInCart}">
-
-          {{ isProductInCart ? 'Added to Cart' : 'Add to Cart' }}
-
-        </button>
+        <button
+        class="w-full py-3 px-6 text-lg font-medium rounded-lg transition duration-300 focus:outline-none focus:ring-2"
+        (click)="addToCart()"
+        [disabled]="isProductInCart"
+        [ngClass]="{
+          'bg-blue-600 text-white hover:bg-blue-500 focus:ring-blue-300': !isProductInCart,
+          'bg-gray-300 text-gray-500': isProductInCart
+        }"
+      >
+        {{ isProductInCart ? 'Added to Cart' : 'Add to Cart' }}
+      </button>
 
       </div>
     </div>
