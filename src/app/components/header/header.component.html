@@ -1,0 +1,57 @@
+<nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div [routerLink]="['/home']"  class="flex items-center cursor-pointer">
+          <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular Logo" class="h-10 w-10">
+        </div>
+
+        <!-- Search Bar -->
+        <div class="flex-grow mx-4 relative">
+          <!-- Search Input -->
+          <input #inputElement
+          [(ngModel)]="searchText"
+          (input)="onSearchTextChange(searchText)"
+            type="text" 
+            placeholder="Search" 
+            class="w-full py-2 px-4 border border-gray-300 rounded-sm focus:outline-none"
+          >
+        
+          <!-- Suggestions Dropdown -->
+          <div *ngIf="filteredSuggestions && filteredSuggestions.length > 0; else noSuggestion" class="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-sm mt-1 shadow-lg">
+            <ul>
+              <li *ngFor="let suggestion of filteredSuggestions" class="px-3 py-2 hover:bg-gray-100 cursor-pointer"  (click)="selectSuggestion(suggestion)">{{ suggestion.title }}</li>
+            </ul>
+          </div>
+
+          <ng-template #noSuggestion>
+            <div *ngIf="searchText" class="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-sm mt-1 shadow-lg text-gray-500 px-3 py-2">
+              No suggestions available.
+            </div>
+          </ng-template>
+
+        </div>
+
+
+        
+
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <button class="text-gray-500 hover:text-gray-700">
+              <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"></path>
+              </svg>
+            </button>
+            <span class="absolute top-0 right-0 transform translate-x-1 -translate-y-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {{cartCount}}
+            </span>
+          </div>
+        
+          <button class="text-gray-500 hover:text-gray-700">
+            <img class="h-9 w-9 rounded-full" src="https://i.pinimg.com/280x280_RS/79/dd/11/79dd11a9452a92a1accceec38a45e16a.jpg" alt="">
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
